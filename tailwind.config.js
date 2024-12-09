@@ -14,7 +14,8 @@ export default {
     theme: {
     	extend: {
     		fontFamily: {
-    			sans: ['Figtree', ...defaultTheme.fontFamily.sans]
+    			sans: ['Roboto', ...defaultTheme.fontFamily.sans]
+    			// sans: ['Figtree', ...defaultTheme.fontFamily.sans]
     		},
     		borderRadius: {
     			lg: 'var(--radius)',
@@ -66,5 +67,8 @@ export default {
     	}
     },
 
-    plugins: [forms, require("tailwindcss-animate")],
+    plugins: [
+		require('tailwindcss-animate'),
+		require('@tailwindcss/typography')
+	],
 };
