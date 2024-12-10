@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum CardStatus: string
 {
-    case TODO = "In Progress";
+    case TODO = "Todo";
     case IN_PROGRESS = "In Progress";
     case ONREVIEW = "On Review";
     case DONE = "Done";
