@@ -10,14 +10,14 @@ export const STATUS = {
   IN_PROGRESS : "In Progress",
   ONREVIEW : "On Review",
   DONE : "Done",
-  UNKOWN : "Unknown"
 }
 
 export const PRIORITY = {
   URGENT : "Urgent",
   LOW : "Low",
   MEDIUM : "Medium",
-  HIGH : "High"
+  HIGH : "High",
+  UNKOWN : "Unknown",
 }
 
 export function flashMessage(params){
