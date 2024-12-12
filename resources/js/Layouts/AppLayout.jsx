@@ -3,7 +3,8 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import { Fragment, useState } from 'react';
 import { PiSidebar, PiX } from 'react-icons/pi';
 import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
-import AppLayoutSidebar from './AppLayoutSidebar';
+import Sidebar from './partials/Sidebar';
+import SidebarResponsive from './partials/SidebarResponsive';
 
 export default function AppLayout({ children, title }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -58,7 +59,7 @@ export default function AppLayout({ children, title }) {
                                         </div>
                                     </Transition.Child>
                                     {/* Sidebar Responsive */}
-                                    <AppLayoutSidebar />
+                                    <SidebarResponsive />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -76,7 +77,8 @@ export default function AppLayout({ children, title }) {
                             </Link>
                         </div>
                         {/* Sidebar */}
-                        <AppLayoutSidebar />
+                        <Sidebar />
+                        {/* Sidebar */}
                     </div>
                 </div>
 

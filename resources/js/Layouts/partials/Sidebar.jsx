@@ -3,7 +3,7 @@ import { PiHouse, PiLockKeyOpen, PiPlus, PiSquaresFour, PiUsers } from 'react-ic
 import { Link } from '@inertiajs/react';
 import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
 
-const AppLayoutSidebar = () => {
+const Sidebar = () => {
     return (
         <nav className="flex flex-col flex-1">
             <ul role="list" className="flex flex-col flex-1 gap-y-7">
@@ -82,4 +82,4 @@ const AppLayoutSidebar = () => {
     )
 }
 
-export default AppLayoutSidebar
+export default Sidebar
