@@ -3,7 +3,7 @@ import { PiHouse, PiLockKeyOpen, PiPlus, PiSquaresFour, PiUsers } from 'react-ic
 import { Link } from '@inertiajs/react';
 import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
 
-const SidebarResponsive = () => {
+const SidebarResponsive = ({ auth }) => {
     return (
         <>
             <div className="flex flex-col px-6 pb-2 overflow-y-auto bg-white dark:bg-gray-900 grow gap-y-5">
@@ -92,6 +92,19 @@ const SidebarResponsive = () => {
                                 </li>
                             </ul>
                             {/* workspaces */}
+                        </li>
+                        <li className="mt-auto -mx-6">
+                            {/* profile */}
+                            <Link
+                                href='#'
+                                className='flex items-center px-6 py-3 text-sm font-semibold leading-relaxed gap-x-4 text-foreground hover:bg-gray-100'
+                            >
+                                <Avatar>
+                                    <AvatarFallback>X</AvatarFallback>
+                                </Avatar>
+                                <span>{auth.user && auth.user.name}</span>
+                            </Link>
+                            {/* profile */}
                         </li>
                     </ul>
                 </nav>

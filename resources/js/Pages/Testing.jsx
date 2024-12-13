@@ -3,10 +3,10 @@ import React from 'react'
 
 const Testing = () => {
   return (
-    <AppLayout>
-        <div>Testing</div>
-    </AppLayout>
+    <div>Testing</div>
   )
 }
 
 export default Testing
+
+Testing.layout = page => <AppLayout children={page} />

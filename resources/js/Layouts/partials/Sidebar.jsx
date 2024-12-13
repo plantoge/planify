@@ -3,7 +3,7 @@ import { PiHouse, PiLockKeyOpen, PiPlus, PiSquaresFour, PiUsers } from 'react-ic
 import { Link } from '@inertiajs/react';
 import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
 
-const Sidebar = () => {
+const Sidebar = ({auth}) => {
     return (
         <nav className="flex flex-col flex-1">
             <ul role="list" className="flex flex-col flex-1 gap-y-7">
@@ -73,7 +73,7 @@ const Sidebar = () => {
                             <Avatar>
                                 <AvatarFallback>X</AvatarFallback>
                             </Avatar>
-                            <span>Fauzi</span>
+                            <span>{auth.user && auth.user.name}</span>
                         </Link>
                     {/* profile */}
                 </li>
