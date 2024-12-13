@@ -2,8 +2,22 @@ import React from 'react'
 import { PiHouse, PiLockKeyOpen, PiPlus, PiSquaresFour, PiUsers } from 'react-icons/pi';
 import { Link } from '@inertiajs/react';
 import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
+import { cn } from '@/lib/utils';
 
-const Sidebar = ({auth}) => {
+const Sidebar = ({ auth, url }) => {
+
+    const styleDashboard = url.url == '/dashboard' ?
+        'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
+        'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
+
+    const styleUser = url.url == '/users' ?
+        'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
+        'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
+
+    const styleTask = url.url == '/task' ?
+        'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
+        'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
+
     return (
         <nav className="flex flex-col flex-1">
             <ul role="list" className="flex flex-col flex-1 gap-y-7">
@@ -12,31 +26,32 @@ const Sidebar = ({auth}) => {
                         {/* menu */}
                         <li>
                             <Link
-                                href='#'
-                                className='flex p-3 text-sm font-semibold leading-realaxed tracking-tighter rounded-md text-foreground hover:bg-gray-100 group gap-x-3'>
+                                href={route('dashboard')}
+                                className={cn(styleDashboard)}>
                                 <PiHouse className="w-6 h-6 text-foreground shrink-0" />
                                 Dashboard
                             </Link>
                         </li>
                         <li>
                             <Link
-                                href='#'
-                                className='flex p-3 text-sm font-semibold leading-realaxed tracking-tighter rounded-md text-foreground hover:bg-gray-100 group gap-x-3'>
+                                href={route('users')}
+                                className={cn(styleUser)}>
                                 <PiUsers className="w-6 h-6 text-foreground shrink-0" />
                                 People
                             </Link>
                         </li>
                         <li>
                             <Link
-                                href='#'
-                                className='flex p-3 text-sm font-semibold leading-realaxed tracking-tighter rounded-md text-foreground hover:bg-gray-100 group gap-x-3'>
+                                href={route('task')}
+                                className={cn(styleTask)}>
                                 <PiSquaresFour className="w-6 h-6 text-foreground shrink-0" />
                                 My Task
                             </Link>
                         </li>
                         <li>
                             <Link
-                                href='#'
+                                href={route('logout')}
+                                method="post"
                                 className='flex p-3 text-sm font-semibold leading-realaxed tracking-tighter rounded-md text-foreground hover:bg-gray-100 group gap-x-3'>
                                 <PiLockKeyOpen className="w-6 h-6 text-foreground shrink-0" />
                                 Logout
@@ -66,15 +81,15 @@ const Sidebar = ({auth}) => {
                 </li>
                 <li className="mt-auto -mx-6">
                     {/* profile */}
-                        <Link
-                            href='#'
-                            className='flex items-center px-6 py-3 text-sm font-semibold leading-relaxed gap-x-4 text-foreground hover:bg-gray-100'    
-                        >
-                            <Avatar>
-                                <AvatarFallback>X</AvatarFallback>
-                            </Avatar>
-                            <span>{auth.user && auth.user.name}</span>
-                        </Link>
+                    <Link
+                        href='#'
+                        className='flex items-center px-6 py-3 text-sm font-semibold leading-relaxed gap-x-4 text-foreground hover:bg-gray-100'
+                    >
+                        <Avatar>
+                            <AvatarFallback>X</AvatarFallback>
+                        </Avatar>
+                        <span>{auth.user && auth.user.name}</span>
+                    </Link>
                     {/* profile */}
                 </li>
             </ul>

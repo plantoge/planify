@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -14,13 +15,17 @@ Route::get('/', function () {
     ]);
 });
 
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth']);
+Route::get('users', [DashboardController::class, 'index'])->name('users')->middleware(['auth']);
+Route::get('task', [DashboardController::class, 'index'])->name('task')->middleware(['auth']);
+
 route::get('testing', function () {
     return Inertia::render('Testing');
 });
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
