@@ -18,6 +18,10 @@ const Sidebar = ({ auth, url }) => {
         'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
         'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
 
+    const styleLogout = url.url == '/logout' ?
+        'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
+        'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
+
     return (
         <nav className="flex flex-col flex-1">
             <ul role="list" className="flex flex-col flex-1 gap-y-7">
@@ -48,15 +52,13 @@ const Sidebar = ({ auth, url }) => {
                                 My Task
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                href={route('logout')}
-                                method="post"
-                                className='flex p-3 text-sm font-semibold leading-realaxed tracking-tighter rounded-md text-foreground hover:bg-gray-100 group gap-x-3'>
-                                <PiLockKeyOpen className="w-6 h-6 text-foreground shrink-0" />
-                                Logout
-                            </Link>
-                        </li>
+                        <Link
+                            method='post'
+                            href={route('logout')}
+                            className={cn(styleLogout)}>
+                            <PiLockKeyOpen className="w-6 h-6 text-foreground shrink-0" />
+                            Logout
+                        </Link>
                     </ul>
                 </li>
                 <li>

@@ -16,6 +16,10 @@ const SidebarResponsive = ({ auth, url }) => {
     const styleTask = url.url == '/task' ?
         'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
         'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
+    
+    const styleLogout = url.url == '/logout' ?
+        'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
+        'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
 
     return (
         <>
@@ -59,9 +63,9 @@ const SidebarResponsive = ({ auth, url }) => {
                                 </li>
                                 <li>
                                     <Link
+                                        method='post'
                                         href={route('logout')}
-                                        method="post"
-                                        className='flex p-3 text-sm font-semibold leading-realaxed tracking-tighter rounded-md text-foreground hover:bg-gray-100 group gap-x-3'>
+                                        className={cn(styleLogout)}>
                                         <PiLockKeyOpen className="w-6 h-6 text-foreground shrink-0" />
                                         Logout
                                     </Link>
