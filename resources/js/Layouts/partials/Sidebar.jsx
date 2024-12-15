@@ -55,6 +55,7 @@ const Sidebar = ({ auth, url }) => {
                         <Link
                             method='post'
                             href={route('logout')}
+                            as='button'
                             className={cn(styleLogout)}>
                             <PiLockKeyOpen className="w-6 h-6 text-foreground shrink-0" />
                             Logout
@@ -67,7 +68,7 @@ const Sidebar = ({ auth, url }) => {
                         <div className='text-xs font-semibold leading-relaxed uppercase text-foreground'>
                             Workspaces
                         </div>
-                        <Link>
+                        <Link href={route('workspaces.create')}>
                             <PiPlus className="w-4 h-4 text-foreground hover:text-red-500" />
                         </Link>
                     </div>
