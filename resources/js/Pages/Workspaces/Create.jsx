@@ -1,3 +1,4 @@
+import React from 'react'
 import HeaderForm from '@/Components/HeaderForm'
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
@@ -5,28 +6,29 @@ import { Button } from '@/Components/ui/button'
 import { Card, CardContent } from '@/Components/ui/card'
 import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/Components/ui/select'
 import AppLayout from '@/Layouts/AppLayout'
-import { router } from '@inertiajs/react'
-import React, { useState } from 'react'
+import { useForm } from '@inertiajs/react'
 
-export default function Create({page_settings, visibilites}) {
-    const [data, setData] = useState({
+export default function Create({page_settings, visibilities}) {
+    const {data, setData, processing, reset, post, errors} = useForm({
         name: '',
         cover: '',
         logo: '',
         visibility: 'Private',
-    })  
-
+    }) 
+        
     const onHandleSubmit = (e) => {
-        e.preventDefault()
-        router.post(page_settings.action, data);
+        e.preventDefault();
+        
+        post(page_settings.action);
     }
+    
   return (
     <div className='space-y-10 divide-y divide-dashed divide-gray-900/10'>
         <div className='grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-1'>
             <HeaderForm className='mb-0' title={page_settings.title} subtitle={page_settings.subtitle} />
             <Card className='md:col-span-2'>
                 <CardContent>
-                    <form>
+                    <form onSubmit={onHandleSubmit}>
                         <div className='py-6'>
                             <div className='grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-6'>
                                 <div className='col-span-full'>
@@ -36,10 +38,7 @@ export default function Create({page_settings, visibilites}) {
                                         name='name'
                                         id='name'
                                         className='mt-1 block w-full'
-                                        onChange={(e) => setData(data => ({
-                                            ...data,
-                                            [e.target.name]: e.target.value
-                                        }))} />
+                                        onChange={(e) => setData(e.target.name, e.target.value)} />
                                 </div>
                                 <div className='col-span-full'>
                                     <InputLabel htmlFor='cover' value={'cover'} />
@@ -48,10 +47,7 @@ export default function Create({page_settings, visibilites}) {
                                         name='cover'
                                         id='cover'
                                         className='mt-1 block w-full'
-                                        onChange={(e) => setData(data => ({
-                                            ...data,
-                                            [e.target.name]: e.target.files[0]
-                                        }))} />
+                                        onChange={(e) => setData(e.target.name, e.target.files[0])} />
                                 </div>
                                 <div className='col-span-full'>
                                     <InputLabel htmlFor='logo' value={'logo'} />
@@ -60,24 +56,18 @@ export default function Create({page_settings, visibilites}) {
                                         name='logo'
                                         id='logo'
                                         className='mt-1 block w-full' 
-                                        onChange={(e) => setData(data => ({
-                                            ...data,
-                                            [e.target.name]: e.target.files[0]
-                                        }))} />
+                                        onChange={(e) => setData(e.target.name, e.target.files[0])} />
                                 </div>
                                 <div className='col-span-full'>
                                     <InputLabel htmlFor='visibility' value={'visibility'} />
                                     <Select
                                         defaultValue='Select a visibility'
-                                        onValueChange={(value) => setData(data => ({
-                                            ...data,
-                                            ['visibilities']: value
-                                        }))} >
+                                        onValueChange={(value) => setData('visibility', value)} >
                                         <SelectTrigger>
-                                            <SelectValue>Select a Visibility</SelectValue>
+                                            <SelectValue></SelectValue>
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {visibilites.map((visibility, index) => (
+                                            {visibilities.map((visibility, index) => (
                                                 <SelectItem key={index} value={visibility.value}>
                                                     {visibility.label}
                                                 </SelectItem>
@@ -85,11 +75,11 @@ export default function Create({page_settings, visibilites}) {
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className='flex items-center justify-end py-6 gap-x-2'>
+                                <div className='flex items-center justify-end py-6 gap-x-2 col-span-full'>
                                     <Button type='button' variant='ghost'>
                                         Reset
                                     </Button>
-                                    <Button type='submit' variant='red'>
+                                    <Button type='submit' variant='red' disabled={processing}>
                                         Save
                                     </Button>
                                 </div>

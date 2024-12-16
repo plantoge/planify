@@ -5,7 +5,7 @@
 use Illuminate\Support\Facades\Session;
 
 if(!function_exists('flashMessage')) {
-    function flashMessage($type = 'success', $message): void 
+    function flashMessage($message, $type = 'success'): void 
     {
         Session::flash('message', $message);
         Session::flash('type', $type);

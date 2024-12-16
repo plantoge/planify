@@ -29,7 +29,7 @@ class WorkspaceController extends Controller
                 'method' => 'POST',
                 'action' => route('workspaces.store'),
             ],
-            'visibilites' => WorkspaceVisibility::option()
+            'visibilities' => WorkspaceVisibility::option()
         ]);
     }
 
@@ -38,7 +38,7 @@ class WorkspaceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
