@@ -5,6 +5,7 @@ import { PiSidebar, PiX } from 'react-icons/pi';
 import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
 import Sidebar from './partials/Sidebar';
 import SidebarResponsive from './partials/SidebarResponsive';
+import { Toaster } from '@/Components/ui/sonner';
 
 export default function AppLayout({ children, title }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,6 +15,7 @@ export default function AppLayout({ children, title }) {
     return (
         <>
             <Head title={title} />
+            <Toaster position="bottom-right" richColors />
             <div>
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>

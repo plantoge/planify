@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace App\Traits;
+
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-Trait Hasfile
+Trait HasFile
 {
     public function uploadFile(Request $request, string $column, string $folder)
     {
@@ -24,5 +26,12 @@ Trait Hasfile
         }
 
         return $thumbnail;
+    }
+
+    public function deleteFile(Model $model, string $column)
+    {
+        if($model->{$column}){
+            Storage::delete($model->{$column});
+        }
     }
 }

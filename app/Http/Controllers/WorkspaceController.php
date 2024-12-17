@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Enums\WorkspaceVisibility;
+use App\Traits\HasFile;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class WorkspaceController extends Controller
 {
+    use HasFile;
     /**
      * Display a listing of the resource.
      */
@@ -17,9 +19,6 @@ class WorkspaceController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): Response
     {
         return Inertia::render('Workspaces/Create', props: [
@@ -38,7 +37,23 @@ class WorkspaceController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'visibility' => 'required|in:public,private'
+        ]);
+
+        $request->user()->workspaces()->create([
+            'name' => $request->name,
+            'slug' => str()->slug($request->name, str()->uuid(10)),
+            'cover' => $this->uploadFile($request, 'cover', 'workspaces/cover'),
+            'logo' => $this->uploadFile($request, 'logo', 'workspaces/logo'),
+            'visibility' => $request->visibility
+        ]);
+
+        flashMessage('Workspace created successfully', 'success');
+        return back();
     }
 
     /**

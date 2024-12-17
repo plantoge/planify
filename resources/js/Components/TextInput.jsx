@@ -1,13 +1,14 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 export default forwardRef(function TextInput(
-    { type = 'text', className = '', isFocused = false, onErrors, ...props },
+    { type = 'text', value, className = '', isFocused = false, onErrors, ...props },
     ref,
 ) {
     const localRef = useRef(null);
 
     useImperativeHandle(ref, () => ({
         focus: () => localRef.current?.focus(),
+        reset: () => localRef.current?.reset(),
     }));
 
     useEffect(() => {
@@ -21,6 +22,7 @@ export default forwardRef(function TextInput(
             <input
                 {...props}
                 type={type}
+                defaultValue={value}
                 className={
                     'block w-full rounded-md border border-input bg-background p-2 text-foreground shadow-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6'
                 }
