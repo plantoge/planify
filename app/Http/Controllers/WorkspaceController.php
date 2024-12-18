@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\WorkspaceVisibility;
+use App\Http\Requests\WorkspaceRequest;
 use App\Traits\HasFile;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,14 +36,14 @@ class WorkspaceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(WorkspaceRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'visibility' => 'required|in:public,private'
-        ]);
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'cover' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'visibility' => 'required|in:public,private'
+        // ]);
 
         $request->user()->workspaces()->create([
             'name' => $request->name,

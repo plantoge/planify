@@ -4,7 +4,7 @@ import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
 import { Button } from '@/Components/ui/button'
 import { Card, CardContent } from '@/Components/ui/card'
-import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/Components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select'
 import AppLayout from '@/Layouts/AppLayout'
 import { useForm } from '@inertiajs/react'
 import { flashMessage } from '@/lib/utils'
@@ -12,12 +12,27 @@ import { toast } from 'sonner'
 import InputError from '@/Components/InputError'
 
 export default function Create({ page_settings, visibilities }) {
+
     const { data, setData, processing, reset, post, errors } = useForm({
         name: '',
-        cover: '',
-        logo: '',
-        visibility: 'Private',
+        cover: null,
+        logo: null,
+        visibility: '',
+        _method: page_settings.method,
     })
+    
+    const fileInputLogo = useRef(null);
+    const fileInputCover = useRef(null);
+
+    const onHandleReset = () => {
+        reset();
+        if(fileInputCover.current){
+            fileInputCover.current.reset();
+        }
+        if(fileInputLogo.current){
+            fileInputLogo.current.reset();
+        }
+    };
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
@@ -25,8 +40,9 @@ export default function Create({ page_settings, visibilities }) {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (success) => {
+                onHandleReset()
                 const flash = flashMessage(success);
-                if (flash) toast[flash.type](flash.message);
+                if (flash) toast[flash.type](flash.message)
             }
 
         });
@@ -47,7 +63,7 @@ export default function Create({ page_settings, visibilities }) {
                                             type='text'
                                             id='name'
                                             name='name'
-                                            defaultValue={data.name}
+                                            value={data.name}
                                             className='mt-1 block w-full'
                                             onChange={(e) => setData(e.target.name, e.target.value)}
                                             onErrors={errors.name && <InputError message={errors.name} />} />
@@ -56,8 +72,9 @@ export default function Create({ page_settings, visibilities }) {
                                         <InputLabel htmlFor='cover' value={'cover'} />
                                         <TextInput
                                             type='file'
-                                            name='cover'
                                             id='cover'
+                                            name='cover'
+                                            ref={fileInputCover}
                                             className='mt-1 block w-full'
                                             onChange={(e) => setData(e.target.name, e.target.files[0])} />
 
@@ -67,8 +84,9 @@ export default function Create({ page_settings, visibilities }) {
                                         <InputLabel htmlFor='logo' value={'logo'} />
                                         <TextInput
                                             type='file'
-                                            name='logo'
                                             id='logo'
+                                            name='logo'
+                                            ref={fileInputLogo}
                                             className='mt-1 block w-full'
                                             onChange={(e) => setData(e.target.name, e.target.files[0])} />
 
@@ -77,7 +95,7 @@ export default function Create({ page_settings, visibilities }) {
                                     <div className='col-span-full'>
                                         <InputLabel htmlFor='visibility' value={'visibility'} />
                                         <Select
-                                            defaultValue='Select a visibility'
+                                            value={data.visibility}
                                             onValueChange={(value) => setData('visibility', value)} >
                                             <SelectTrigger>
                                                 <SelectValue></SelectValue>
@@ -94,7 +112,7 @@ export default function Create({ page_settings, visibilities }) {
 
                                     </div>
                                     <div className='flex items-center justify-end py-6 gap-x-2 col-span-full'>
-                                        <Button type='button' variant='ghost'>
+                                        <Button type='button' variant='ghost' onClick={onHandleReset}>
                                             Reset
                                         </Button>
                                         <Button type='submit' variant='red' disabled={processing}>
@@ -109,6 +127,7 @@ export default function Create({ page_settings, visibilities }) {
             </div>
         </div>
     )
+    
 }
 
 Create.layout = (page) => <AppLayout children={page} title={'Create Workspace'} />

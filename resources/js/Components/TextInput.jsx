@@ -8,24 +8,29 @@ export default forwardRef(function TextInput(
 
     useImperativeHandle(ref, () => ({
         focus: () => localRef.current?.focus(),
-        reset: () => localRef.current?.reset(),
-    }));
+        reset: () => {
+            if(localRef.current){
+                localRef.current.value = '';
+            }
+        },
+    }))
 
     useEffect(() => {
         if (isFocused) {
-            localRef.current?.focus();
+            input.current.focus();
         }
     }, [isFocused]);
 
     return (
-        <div className='mt-1'>
+        <div className="mt-2">
             <input
                 {...props}
                 type={type}
-                defaultValue={value}
                 className={
-                    'block w-full rounded-md border border-input bg-background p-2 text-foreground shadow-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6'
+                    'block w-full rounded-md border border-input bg-background p-2 text-foreground shadow-sm outline-none placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm sm:leading-6' +
+                    className
                 }
+                value={value}
                 ref={localRef}
             />
             {onErrors}
