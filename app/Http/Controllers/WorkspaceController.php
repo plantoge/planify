@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Enums\WorkspaceVisibility;
 use App\Http\Requests\WorkspaceRequest;
+use App\Http\Resources\WorkspaceSidebarResource;
+use App\Models\Workspace;
 use App\Traits\HasFile;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;

@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
 import { cn } from '@/lib/utils';
 
-const SidebarResponsive = ({ auth, url }) => {
+const SidebarResponsive = ({ auth, url, workspace }) => {
     const styleDashboard = url.url == '/dashboard' ?
         'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
         'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
@@ -16,7 +16,7 @@ const SidebarResponsive = ({ auth, url }) => {
     const styleTask = url.url == '/task' ?
         'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
         'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
-    
+
     const styleLogout = url.url == '/logout' ?
         'text-foreground bg-red-500 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter text-white' :
         'text-foreground hover:bg-gray-100 group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-realaxed tracking-tighter'
@@ -85,30 +85,17 @@ const SidebarResponsive = ({ auth, url }) => {
                                 </Link>
                             </div>
                             <ul role='list' className='mt-2 -mx-2 space-y-2'>
-                                <li>
-                                    <Link href='#' className='flex w-full p-3 text-sm font-semibold leading-relaxed rounded-md text-card-foreground hover: bg-gray-100 group gap-x-3'>
-                                        <span className='border-foreground text-foreground flex h-6 w-6 shrink-0 items-center justify-center rounded-lh border bg-white text-[0.65rem] font-medium'>B</span>
-                                        <span className='truncate'>Backend Developer</span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#' className='flex w-full p-3 text-sm font-semibold leading-relaxed rounded-md text-card-foreground hover: bg-gray-100 group gap-x-3'>
-                                        <span className='border-foreground text-foreground flex h-6 w-6 shrink-0 items-center justify-center rounded-lh border bg-white text-[0.65rem] font-medium'>B</span>
-                                        <span className='truncate'>Backend Developer</span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#' className='flex w-full p-3 text-sm font-semibold leading-relaxed rounded-md text-card-foreground hover: bg-gray-100 group gap-x-3'>
-                                        <span className='border-foreground text-foreground flex h-6 w-6 shrink-0 items-center justify-center rounded-lh border bg-white text-[0.65rem] font-medium'>B</span>
-                                        <span className='truncate'>Backend Developer</span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#' className='flex w-full p-3 text-sm font-semibold leading-relaxed rounded-md text-card-foreground hover: bg-gray-100 group gap-x-3'>
-                                        <span className='border-foreground text-foreground flex h-6 w-6 shrink-0 items-center justify-center rounded-lh border bg-white text-[0.65rem] font-medium'>B</span>
-                                        <span className='truncate'>Backend Developer</span>
-                                    </Link>
-                                </li>
+                                {workspace.data.map((workspace, index) => (
+                                    <li key={index}>
+                                        <Link href={route('workspaces.show', workspace.slug )} className='flex w-full p-3 text-sm font-semibold leading-relaxed rounded-md text-card-foreground hover: bg-gray-100 group gap-x-3'>
+                                            <span className='border-foreground text-foreground flex h-6 w-6 shrink-0 items-center justify-center rounded-lh border bg-white text-[0.65rem] font-medium'>
+                                                {workspace.name.substring(0, 1)}    
+                                            </span>
+                                            <span className='truncate'>{workspace.name}</span>
+                                        </Link>
+                                    </li>
+                                ))}
+
                             </ul>
                             {/* workspaces */}
                         </li>

@@ -12,7 +12,7 @@ import { toast } from 'sonner'
 import InputError from '@/Components/InputError'
 
 export default function Create({ page_settings, visibilities }) {
-
+    
     const { data, setData, processing, reset, post, errors } = useForm({
         name: '',
         cover: null,
