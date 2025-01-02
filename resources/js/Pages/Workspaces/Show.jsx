@@ -27,7 +27,7 @@ export default function Show({ ...props }) {
                                 className='inline-flex items-center justify-center text-sm font-medium transition-colors rounded-md whitespace-nowrap text-foreground ring-offset-background hover:font-bold hover:text-red-500 hover:no-underline hover:transition-colors focus-visible:outline-line focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50' 
                             >Create Card</Link>
                             <Link 
-                                href=''
+                                href={route('workspaces.edit', dataWorkspace.slug)}
                                 className='inline-flex items-center justify-center text-sm font-medium transition-colors rounded-md whitespace-nowrap text-foreground ring-offset-background hover:font-bold hover:text-red-500 hover:no-underline hover:transition-colors focus-visible:outline-line focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50' 
                             >Setting</Link>
                         </div>
