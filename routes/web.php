@@ -26,7 +26,7 @@ Route::get('task', [DashboardController::class, 'index'])->name('task')->middlew
 
 Route::get('workspaces/create', [WorkspaceController::class, 'create'])->name('workspaces.create')->middleware(['auth']);
 Route::post('workspaces/create', [WorkspaceController::class, 'store'])->name('workspaces.store')->middleware(['auth']);
-Route::get('workspaces/p/{workspace:slug', [WorkspaceController::class, 'show'])->name('workspaces.show')->middleware(['auth']);
+Route::get('workspaces/p/{workspace:slug}', [WorkspaceController::class, 'show'])->name('workspaces.show')->middleware(['auth']);
 Route::get('workspaces/edit/{workspace:slug}', [WorkspaceController::class, 'edit'])->name('workspaces.edit')->middleware(['auth']);
 Route::put('workspaces/edit/{workspace:slug}', [WorkspaceController::class, 'update'])->name('workspaces.update')->middleware(['auth']);
 Route::delete('workspaces/destroy/{workspace:slug}', [WorkspaceController::class, 'destroy'])->name('workspaces.destroy')->middleware(['auth']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\WorkspaceVisibility;
 use App\Http\Requests\WorkspaceRequest;
+use App\Http\Resources\WorkspaceResource;
 use App\Http\Resources\WorkspaceSidebarResource;
 use App\Models\Workspace;
 use App\Traits\HasFile;
@@ -48,7 +49,7 @@ class WorkspaceController extends Controller
         //     'visibility' => 'required|in:public,private'
         // ]);
 
-        $request->user()->workspaces()->create([
+        $workspace = $request->user()->workspaces()->create([
             'name' => $request->name,
             'slug' => str()->slug($request->name, str()->uuid(10)),
             'cover' => $this->uploadFile($request, 'cover', 'workspaces/cover'),
@@ -57,15 +58,18 @@ class WorkspaceController extends Controller
         ]);
 
         flashMessage('Workspace created successfully', 'success');
-        return back();
+        return to_route('workspaces.show', $workspace);
+        // return back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Workspace $workspace)
     {
-        //
+        return inertia(component: 'Workspaces/Show', props: [
+            'showWorkspace' => fn() => new WorkspaceResource($workspace)
+        ]);
     }
 
     /**

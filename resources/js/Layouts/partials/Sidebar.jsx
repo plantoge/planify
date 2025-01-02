@@ -76,7 +76,7 @@ const Sidebar = ({ auth, url, workspace }) => {
                         {workspace.data.map((workspace, index) => (
                             <li key={index}>
                                 <Link href={route('workspaces.show', workspace.slug )} className='flex w-full p-3 text-sm font-semibold leading-relaxed rounded-md text-card-foreground hover: bg-gray-100 group gap-x-3'>
-                                    <span className='border-foreground text-foreground flex h-6 w-6 shrink-0 items-center justify-center rounded-lh border bg-white text-[0.65rem] font-medium'>
+                                    <span className='border-foreground text-foreground flex h-6 w-6 shrink-0 items-center justify-center rounded border bg-white text-[0.65rem] font-bold uppercase'>
                                         {workspace.name.substring(0, 1)}
                                     </span>
                                     <span className='truncate'>{workspace.name}</span>
