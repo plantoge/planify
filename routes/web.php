@@ -31,6 +31,9 @@ Route::get('workspaces/edit/{workspace:slug}', [WorkspaceController::class, 'edi
 Route::put('workspaces/edit/{workspace:slug}', [WorkspaceController::class, 'update'])->name('workspaces.update')->middleware(['auth']);
 Route::delete('workspaces/destroy/{workspace:slug}', [WorkspaceController::class, 'destroy'])->name('workspaces.destroy')->middleware(['auth']);
 
+Route::post('workspaces/member/{workspace:slug}/store', [WorkspaceController::class, 'member_store'])->name('workspaces.members.store')->middleware(['auth']);
+Route::delete('workspaces/member/{workspace:slug}/destroy', [WorkspaceController::class, 'member_destroy'])->name('workspaces.member_destroy')->middleware(['auth']);
+
 // Route::controller(WorkspaceController::class)->group(function () {
 //     Route::get('workspaces/create', 'create')->name('workspaces.create'); 
 //     Route::post('workspaces/create', 'store')->name('workspaces.store'); 
