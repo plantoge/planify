@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class WorkspaceResource extends JsonResource
+class UserSingleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,15 +15,13 @@ class WorkspaceResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'slug' => $this->slug,
-            'visibility' => $this->visibility,
-            'cover' => Storage::url($this->cover),
-            'logo' => Storage::url($this->logo),
-            'members' => MemberResource::collection($this->members),
+            'username' => $this->username,
+            'email' => $this->email,
+            'avatar' => $this->avatar !== null ? Storage::url($this->avatar) : null,
+            // 'is_admin' => $this->when($this->hasRole('admin'), true)
         ];
     }
 }

@@ -17,6 +17,8 @@ export default function Setting({...props}){
     const workspace = props.editWorkspace.data
     const visibilities = props.visibilities
 
+    console.log(props);
+    
     return (
         <div className="space-y-10 divide-y divide-dashed divide-gray-900/10">
             <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-2">
@@ -25,7 +27,7 @@ export default function Setting({...props}){
             </div>
             <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-2">
                 <HeaderForm title='Members Invite' subtitle='Please add members to the card' />
-                <MemberWorkspace action={route('workspaces.members.store', workspace)} />
+                <MemberWorkspace action={route('workspaces.members.store', workspace)} member={workspace.members} />
             </div>
         </div>
     )
