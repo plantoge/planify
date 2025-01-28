@@ -4,36 +4,36 @@ import TextInput from '@/Components/TextInput';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import React from 'react'
 
-export default function EditWorkspace({workspace, page_settings, visibilities}) {
+export default function EditWorkspace({ workspace, page_settings, visibilities }) {
     const { data, setData, processing, reset, post, errors } = useForm({
-            name: workspace.name ?? '',
-            cover: null,
-            logo: null,
-            visibility: workspace.visibility ?? '', 
-            _method: page_settings.method,
-        })
-        
-        const onHandleSubmit = (e) => {
-            e.preventDefault();
-            post(page_settings.action, {
-                preserveScroll: true,
-                preserveState: true,
-                onSuccess: (success) => {
-                    // onHandleReset()
-                    const flash = flashMessage(success);
-                    if (flash) toast[flash.type](flash.message)
-                }
-    
-    
-            });
-        }
-    
-        const onHandleChange = (e) => {
-            setData(e.target.name, e.target.value);
-        }
+        name: workspace.name ?? '',
+        cover: null,
+        logo: null,
+        visibility: workspace.visibility ?? '',
+        _method: page_settings.method,
+    })
+
+    const onHandleSubmit = (e) => {
+        e.preventDefault();
+        post(page_settings.action, {
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: (success) => {
+                // onHandleReset()
+                const flash = flashMessage(success);
+                if (flash) toast[flash.type](flash.message)
+            }
+
+
+        });
+    }
+
+    const onHandleChange = (e) => {
+        setData(e.target.name, e.target.value);
+    }
 
     return (
         <div className='border'>
@@ -99,13 +99,33 @@ export default function EditWorkspace({workspace, page_settings, visibilities}) 
                                 </div>
                             </div>
                         </div>
-                        <div className="flex items-center justify-end py-6 gap-x-2">
-                            <Button type="button" variant="ghost" onClick={() => reset()}>
-                                Reset
+                        <div className="flex items-center justify-between py-6 gap-x-2">
+                            <Button 
+                                type="button" 
+                                variant="link" 
+                                className="font-medium text-red-500 hover:text-red-600 hover:no-underline" 
+                                onClick={() => 
+                                    confirm('Are you sure you want to delete this workspace?') && 
+                                    router.delete(route('workspaces.destroy', {workspace : workspace}), {
+                                        preserveScroll: true,
+                                        preserveState: true,
+                                        onSuccess: (success) => {
+                                            const flash = flashMessage(success);
+                                            if (flash) toast[flash.type](flash.message)
+                                        }
+                                    })
+                                }
+                            >
+                                Delete Workspace
                             </Button>
-                            <Button variant="red" type="submit" disabled={processing}>
-                                Save
-                            </Button>
+                            <div className='flex gap-x-2'>
+                                <Button type="button" variant="ghost" onClick={() => reset()}>
+                                    Reset
+                                </Button>
+                                <Button variant="red" type="submit" disabled={processing}>
+                                    Save
+                                </Button>
+                            </div>
                         </div>
                     </form>
                 </CardContent>

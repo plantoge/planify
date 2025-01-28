@@ -149,4 +149,13 @@ class WorkspaceController extends Controller
         flashMessage('Succesfully removed member from workspace');
         return back();
     }
+
+    public function destroy(Workspace $workspace)
+    {
+        $workspace->members()->delete();
+        $workspace->delete();
+
+        flashMessage('Succesfully deleted workspace');
+        return to_route('dashboard');
+    }
 }
