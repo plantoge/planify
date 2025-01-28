@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/Components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { flashMessage } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import React from 'react'
 import { toast } from 'sonner';
 
@@ -17,6 +17,8 @@ export default function MemberWorkspace({ action, member }) {
 
     })
 
+    console.log(member);
+    
     const onHandleSubmit = (e) => {
         e.preventDefault();
         post(action, {
@@ -76,24 +78,42 @@ export default function MemberWorkspace({ action, member }) {
                     </form>
                     <div className='py-6 space-y-4'>
                         <ul role='list' className='border border-gray-200 divide-y divide-gray-100 rounded-md'>
-                            {member.map((member, index) => (
+                            {member.map((data, index) => (
                                 <li key={index} className='flex justify-between py-4 pl-4 pr-5 text-sm leading-relaxed items center'>
                                     <div className='flex items-center flex-1 w-0'>
                                         <Avatar>
-                                            <AvatarImage src={member.user.avatar}>
-                                                <AvatarFallback>{member.user.name.substring(0, 2)}</AvatarFallback>
+                                            <AvatarImage src={data.user.avatar}>
+                                                <AvatarFallback>{data.user.name.substring(0, 2)}</AvatarFallback>
                                             </AvatarImage>
                                         </Avatar>
                                         <div className='flex flex-col min-w-0 ml-4'>
-                                            <span className='font-medium truncate'>{member.user.name}</span>
-                                            <span className='hidden text-muted-foreground sm:block'>{member.user.email}</span>
+                                            <span className='font-medium truncate'>{data.user.name}</span>
+                                            <span className='hidden text-muted-foreground sm:block'>{data.user.email}</span>
                                         </div>
                                     </div>
                                     <div className='flex-shrink-0 ml-4'>
-                                        <Button variant='link'
-                                            className='font-medium text-red-500 hover:text-red-600 hover:no-underline'>
-                                            delete
-                                        </Button>
+                                        {data.role !== 'owner' ? (
+                                            <Button
+                                                onClick={() => {
+                                                    router.delete(
+                                                        route('workspaces.member_destroy', { workspace: data.memberable_id, member: data.id }),
+                                                        {
+                                                            preserveScroll: true,
+                                                            preserveState: true,
+                                                            onSuccess: (success) => {
+                                                                const flash = flashMessage(success);
+                                                                if (flash) toast[flash.type](flash.message)
+                                                            }
+                                                        }
+                                                    )
+                                                }} 
+                                                variant='link'
+                                                className='font-medium text-red-500 hover:text-red-600 hover:no-underline'>
+                                                delete
+                                            </Button>
+                                        ) : (
+                                            <Button variant='ghost'>Owner</Button>
+                                        )}
 
                                     </div>
                                 </li>

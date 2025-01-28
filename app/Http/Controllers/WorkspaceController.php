@@ -6,6 +6,7 @@ use App\Enums\WorkspaceVisibility;
 use App\Http\Requests\WorkspaceRequest;
 use App\Http\Resources\WorkspaceResource;
 use App\Http\Resources\WorkspaceSidebarResource;
+use App\Models\Member;
 use App\Models\User;
 use App\Models\Workspace;
 use App\Traits\HasFile;
@@ -140,8 +141,12 @@ class WorkspaceController extends Controller
         return back();
     }
 
-    public function member_destroy(string $id)
+    // public function member_destroy(Request $request, $workspace_id, $member_id)
+    public function member_destroy(Workspace $workspace, Member $member)
     {
-        //
+        $member->delete();
+
+        flashMessage('Succesfully removed member from workspace');
+        return back();
     }
 }

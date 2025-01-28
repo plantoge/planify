@@ -17,8 +17,6 @@ export default function Setting({...props}){
     const workspace = props.editWorkspace.data
     const visibilities = props.visibilities
 
-    console.log(props);
-    
     return (
         <div className="space-y-10 divide-y divide-dashed divide-gray-900/10">
             <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-2">
