@@ -36,14 +36,14 @@ Route::post('workspaces/member/{workspace:slug}/store', [WorkspaceController::cl
 Route::delete('workspaces/member/{workspace}/destroy/{member}', [WorkspaceController::class, 'member_destroy'])->name('workspaces.member_destroy')->middleware(['auth']);
 
 Route::controller(CardController::class)->group(function () {
-    Route::get('card/{workspace:slug}/create', 'create')->name('card.create'); 
-    Route::post('card/{workspace:slug}/create', 'store')->name('card.store'); 
+    Route::get('card/{workspace:slug}/create', 'create')->name('card.create')->middleware(['auth']); 
+    Route::post('card/{workspace:slug}/create', 'store')->name('card.store')->middleware(['auth']); 
     Route::get('card/{workspace:slug}/detai/{card}', 'show')->name('card.show'); 
     Route::get('card/{workspace:slug}/edit/{card}', 'edit')->name('card.edit'); 
     Route::put('card/{workspace:slug}/edit/{card}', 'update')->name('card.update'); 
     Route::post('card/{workspace:slug}/{card}/reorder', 'store')->name('card.reorder'); 
     Route::delete('card/{workspace:slug}/destroy/{card}', 'destroy')->name('card.destroy'); 
-});
+})->middleware(['auth']);
 
 route::get('testing', function () {
     return Inertia::render('Testing');

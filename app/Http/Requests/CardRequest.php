@@ -35,12 +35,12 @@ class CardRequest extends FormRequest
 
     public function attributes()
     {
-        return [
-            'title' => 'Title',
-            'description' => 'Description',
-            'deadline' => 'Deadline',
-            'status' => 'Status',
-            'priority' => 'Priority',
-        ];
+        // return [
+        //     'title' => 'title',
+        //     'description' => 'description',
+        //     'deadline' => 'deadline',
+        //     'status' => 'status',
+        //     'priority' => 'priority',
+        // ];
     }
 }

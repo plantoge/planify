@@ -20,7 +20,7 @@ class CardController extends Controller
             ->orderBy('order', 'desc')
             ->first();
 
-        if($last_card) return 1;
+        if($last_card == null) return 1;
         return $last_card->order + 1;
     }
 
@@ -41,15 +41,23 @@ class CardController extends Controller
         ]);
     }
 
-    public function store(Workspace $workspace, CardRequest $request)
+    public function store(Workspace $workspace, Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'deadline' => 'required|string|max:255',
+            'priority' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
+        ]);
+
         $card = $request->user()->cards()->create([
             'workspace_id' => $workspace->id,
             'title' => $request->title,
             'description' => $request->description,
             'deadline' => $request->deadline,
             'status' => $request->status,
-            // 'order' => $this->ordering($workspace, $status),
+            'order' => $this->ordering($workspace, $request->status),
             'priority' => $request->priority
         ]);
 
